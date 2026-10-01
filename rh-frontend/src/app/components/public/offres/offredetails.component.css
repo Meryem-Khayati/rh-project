@@ -1,0 +1,515 @@
+/* Si besoin de styles supplémentaires */
+:host {
+    display: block;
+  }
+  
+  .form-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  
+  .file-upload-area {
+    border: 2px dashed #d1d5db;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+  
+  .file-upload-area:hover {
+    border-color: #3b82f6;
+  }
+  
+  .file-upload-area svg {
+    margin: 0 auto;
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    color: #9ca3af;
+  }
+  
+  .file-name {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #2563eb;
+  }
+  
+  /* === NOTIFICATION CENTRALE PROFESSIONNELLE === */
+  .notification-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    pointer-events: none;
+  }
+  
+  .notification-container .notification-box {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 0 1000px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    width: 380px;
+    max-width: 90vw;
+    padding: 28px;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: notificationAppear 0.4s ease forwards;
+    pointer-events: auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  @keyframes notificationAppear {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .notification-icon {
+    margin: 0 auto 16px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .checkmark {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-linecap: round;
+    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  }
+  
+  .checkmark__check {
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    stroke-width: 2;
+    stroke-linecap: round;
+    animation: dash 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.2s forwards;
+  }
+  
+  @keyframes stroke {
+    100% { stroke-dashoffset: 0; }
+  }
+  
+  @keyframes dash {
+    100% { stroke-dashoffset: 0; }
+  }
+  
+  .notification-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .notification-message {
+    color: #6c757d;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+    line-height: 1.4;/* Styles de base */
+    :host {
+      display: block;
+    }
+    
+    .form-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    
+    .file-upload-area {
+      border: 2px dashed #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+    
+    .file-upload-area:hover {
+      border-color: #3b82f6;
+    }
+    
+    .file-upload-area svg {
+      margin: 0 auto;
+      display: block;
+      width: 3rem;
+      height: 3rem;
+      color: #9ca3af;
+    }
+    
+    .file-name {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: #2563eb;
+    }
+    
+    /* === SCROLLBAR PERSONNALISÉE === */
+    .custom-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 #f1f5f9;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 10px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    
+    /* === ANIMATIONS === */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+    
+    .animate-fadeIn {
+      animation: fadeIn 0.2s ease-out;
+    }
+    
+    .animate-slideUp {
+      animation: slideUp 0.3s ease-out;
+    }
+    
+    .animate-scaleIn {
+      animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    /* === TRUNCATE TEXT === */
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    /* === NOTIFICATION CENTRALE PROFESSIONNELLE === */
+    .notification-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      pointer-events: none;
+    }
+    
+    .notification-container .notification-box {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 0 1000px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      width: 380px;
+      max-width: 90vw;
+      padding: 28px;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: notificationAppear 0.4s ease forwards;
+      pointer-events: auto;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    @keyframes notificationAppear {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    .notification-icon {
+      margin: 0 auto 16px;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .checkmark {
+      width: 70px;
+      height: 70px;
+    }
+    
+    .checkmark__circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      stroke-width: 2;
+      stroke-linecap: round;
+      animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+    
+    .checkmark__check {
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      stroke-width: 2;
+      stroke-linecap: round;
+      animation: dash 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.2s forwards;
+    }
+    
+    @keyframes stroke {
+      100% { stroke-dashoffset: 0; }
+    }
+    
+    @keyframes dash {
+      100% { stroke-dashoffset: 0; }
+    }
+    
+    .notification-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+    
+    .notification-message {
+      color: #6c757d;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    
+    .notification-button {
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-weight: 500;
+    }
+    
+    .notification-button:hover {
+      background-color: #0b5ed7;
+    }
+    
+    /* === RESPONSIVE DESIGN === */
+    @media (max-width: 1024px) {
+      /* Sur tablette, réduire la sidebar */
+      .ml-\[280px\] {
+        margin-left: 240px;
+      }
+      
+      .w-\[280px\] {
+        width: 240px;
+      }
+      
+      .w-\[calc\(100\%-280px\)\] {
+        width: calc(100% - 240px);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      /* Sur mobile, masquer la sidebar par défaut */
+      .w-\[280px\] {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      
+      .ml-\[280px\] {
+        margin-left: 0;
+      }
+      
+      .w-\[calc\(100\%-280px\)\] {
+        width: 100%;
+      }
+    }
+    
+    /* === STYLES POUR DETAILS/SUMMARY === */
+    details summary {
+      list-style: none;
+    }
+    
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+    
+    /* === TRANSITIONS DOUCES === */
+    * {
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+    }
+    
+    /* === HOVER EFFECTS === */
+    .hover\:shadow-lg:hover {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* === FOCUS STATES === */
+    input:focus,
+    select:focus,
+    button:focus {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+    
+    /* === DISABLED STATES === */
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+    
+    /* === CHECKBOX CUSTOM === */
+    input[type="checkbox"] {
+      cursor: pointer;
+      accent-color: #3b82f6;
+    }
+    
+    input[type="checkbox"]:hover {
+      transform: scale(1.05);
+    }
+    
+    /* === BADGE ANIMATIONS === */
+    .inline-flex {
+      transition: all 0.2s ease;
+    }
+    
+    .inline-flex:hover {
+      transform: translateY(-1px);
+    }
+    
+    /* === SIDEBAR FILTER SECTION === */
+    .fixed.left-0.top-0 {
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* === FADE-IN POUR LES OFFRES === */
+    .space-y-4 > div {
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    .space-y-4 > div:nth-child(even) {
+      animation-delay: 0.05s;
+    }
+    
+    /* === EFFET HOVER SUR LES CARTES D'OFFRES === */
+    .bg-white.rounded-xl.shadow-sm {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .bg-white.rounded-xl.shadow-sm:hover {
+      transform: translateY(-2px);
+    }
+  }
+  
+  .notification-button {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: 500;
+  }
+  
+  .notification-button:hover {
+    background-color: #0b5ed7;
+  }
+
+
+
+
+  
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

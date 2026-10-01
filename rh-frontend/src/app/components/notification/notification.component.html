@@ -1,0 +1,24 @@
+@if (show) {
+<div class="notification-container">
+  <div class="notification-box">
+    <div class="notification-icon">
+      @if (type === 'success') {
+      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" stroke="#28a745" />
+        <path class="checkmark__check" fill="none" stroke="#28a745" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+      </svg>
+      }
+      @if (type === 'error') {
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-500 mx-auto" fill="none"
+        viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M12 8v4m0 4h.01M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+      </svg>
+      }
+    </div>
+    <h3 class="notification-title">{{ title }}</h3>
+    <p class="notification-message">{{ message }}</p>
+    <button (click)="onClose()" class="notification-button">OK</button>
+  </div>
+</div>
+}

@@ -1,0 +1,110 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  
+      <!-- ===== HEADER ===== -->
+      <div class="mb-10 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+            Tableau de bord recruteur
+          </h1>
+          <p class="mt-2 text-sm text-gray-600">
+            Suivi de vos offres d'emploi et des candidatures reçues
+          </p>
+        </div>
+
+      </div>
+  
+      <!-- ===== CARDS STATISTIQUES ===== -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+  
+        <!-- Nombre d'offres -->
+        <div
+          class="group bg-white rounded-2xl border border-gray-200 p-6 shadow-sm
+                 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-500 mb-1">Nombre d'offres</p>
+              <p class="text-4xl font-extrabold text-gray-900">
+                {{ nombreOffres }}
+              </p>
+            </div>
+            <div
+              class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center
+                     group-hover:bg-blue-200 transition">
+              <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Total candidatures -->
+        <div
+          class="group bg-white rounded-2xl border border-gray-200 p-6 shadow-sm
+                 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-500 mb-1">Total candidatures</p>
+              <p class="text-4xl font-extrabold text-gray-900">
+                {{ totalCandidatures }}
+              </p>
+            </div>
+            <div
+              class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center
+                     group-hover:bg-green-200 transition">
+              <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+  
+      <!-- ===== FILTRE + TITRE GRAPHIQUE ===== -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+        <h2 class="text-lg font-semibold text-gray-900">
+          Candidatures par année
+        </h2>
+  
+        <div class="flex items-center gap-3 mt-3 sm:mt-0">
+          <label class="text-sm font-medium text-gray-600">Année :</label>
+          <select
+            class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm shadow-sm
+                   focus:outline-none focus:ring-2 focus:ring-blue-500"
+            [(ngModel)]="selectedYear"
+            (change)="onYearChange($any($event.target).value)">
+            <option *ngFor="let year of years" [value]="year">
+              {{ year }}
+            </option>
+          </select>
+        </div>
+      </div>
+  
+      <!-- ===== GRAPHIQUE ===== -->
+      <div
+        class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm"
+        *ngIf="barChartData.labels?.length">
+        <canvas
+          baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          style="height: 420px;">
+        </canvas>
+      </div>
+  
+      <!-- ===== AUCUNE DONNÉE ===== -->
+      <div
+        class="bg-white rounded-2xl border border-gray-200 p-10 text-center shadow-sm"
+        *ngIf="!barChartData.labels || barChartData.labels.length === 0">
+        <p class="text-gray-500 text-sm">
+          Aucune offre d'emploi trouvée pour l'année
+          <span class="font-semibold text-gray-700">{{ selectedYear }}</span>
+        </p>
+      </div>
+  
+    </div>
+  </div>
+  

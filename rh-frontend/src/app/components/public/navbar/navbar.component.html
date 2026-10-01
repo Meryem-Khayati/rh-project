@@ -1,0 +1,50 @@
+<nav class="fixed top-0 left-0 w-full bg-white border-b border-gray-200 shadow-sm z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+
+      <!-- Logo -->
+      <div class="flex items-center space-x-2">
+        <span class="text-2xl font-bold text-blue-700 tracking-wide">
+          SmartHire
+        </span>
+      </div>
+
+      <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-700">
+
+  <!-- Offres d’emploi -->
+  <div class="relative group">
+    <a href="offres"
+       class="hover:text-blue-700 transition flex items-center gap-x-1.5">
+      <span>Offres d’emploi</span>
+    
+    </a>
+  </div>
+
+
+
+
+  <!-- Connexion -->
+  <button
+    (click)="goToLogin()"
+    class="ml-4 bg-blue-700 text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-blue-800 transition">
+    Connexion
+  </button>
+
+</div>
+
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button (click)="toggleMenu()" class="text-gray-700">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path *ngIf="!menuOpen" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16" />
+            <path *ngIf="menuOpen" stroke-width="2"
+              d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</nav>

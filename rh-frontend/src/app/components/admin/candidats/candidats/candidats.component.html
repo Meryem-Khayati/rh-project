@@ -1,0 +1,83 @@
+<!-- Notification globale -->
+<app-notification
+  [show]="!!currentNotification"
+  [title]="currentNotification?.title || ''"
+  [message]="currentNotification?.message || ''"
+  [type]="currentNotification?.type || 'success'"
+  (closed)="currentNotification = null">
+</app-notification>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Gestion des candidats</h1>
+  </div>
+
+  <!-- Erreur globale (réseau) -->
+  <div *ngIf="error" class="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+    {{ error }}
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="flex justify-center py-8">
+    <div class="inline-block h-6 w-6 animate-spin rounded-full border-2 border-blue-500 border-r-transparent"></div>
+    <span class="ml-2 text-gray-600">Chargement...</span>
+  </div>
+
+  <!-- Table -->
+  <div *ngIf="!loading" class="bg-white shadow rounded-lg overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prénom</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Téléphone</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Adresse</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CV</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let c of candidats" class="hover:bg-gray-50">
+            <td class="px-4 py-3">{{ c.nom }}</td>
+            <td class="px-4 py-3">{{ c.prenom }}</td>
+            <td class="px-4 py-3">{{ c.username }}</td>
+            <td class="px-4 py-3">{{ c.numtelephone }}</td>
+            <td class="px-4 py-3">{{ c.adresse }}</td>
+            <td class="px-4 py-3">
+              <div class="flex gap-1">
+                <button
+                  (click)="viewCv(c.id!)"
+                  class="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+                  title="Voir dans un nouvel onglet"
+                >
+                  Voir
+                </button>
+                <button
+                  (click)="downloadCv(c.id!)"
+                  class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200"
+                  title="Télécharger le CV"
+                >
+                  PDF
+                </button>
+              </div>
+            </td>
+            <td class="px-4 py-3">
+              <button
+                (click)="deleteCandidat(c.id!, c.nom, c.prenom)"
+                class="text-red-600 hover:text-red-800 text-sm"
+              >
+                Supprimer
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="candidats.length === 0" class="text-center py-8 text-gray-500">
+      Aucun candidat trouvé.
+    </div>
+  </div>
+</div>

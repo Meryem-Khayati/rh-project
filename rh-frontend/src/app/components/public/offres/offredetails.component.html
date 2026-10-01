@@ -1,0 +1,411 @@
+<app-navbar></app-navbar>
+
+<!-- Sidebar de filtres -->
+<div class="fixed left-0 top-20 h-[calc(100vh-5rem)] w-[280px] bg-white border-r border-gray-200 overflow-y-auto shadow-sm z-10">
+  <div class="p-6">
+    <!-- En-tête des filtres -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-lg font-bold text-gray-800">Filtres</h2>
+      <button 
+      (click)="resetFilters()"
+      class="text-blue-600 hover:text-blue-700 transition-colors p-1 rounded"
+      title="Réinitialiser les filtres"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-5 w-5">
+        <path fill="currentColor" d="M436.7 74.7L448 85.4 448 32c0-17.7 14.3-32 32-32s32 14.3 32 32l0 128c0 17.7-14.3 32-32 32l-128 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l47.9 0-7.6-7.2c-.2-.2-.4-.4-.6-.6-75-75-196.5-75-271.5 0s-75 196.5 0 271.5 196.5 75 271.5 0c8.2-8.2 15.5-16.9 21.9-26.1 10.1-14.5 30.1-18 44.6-7.9s18 30.1 7.9 44.6c-8.5 12.2-18.2 23.8-29.1 34.7-100 100-262.1 100-362 0S-25 175 75 75c99.9-99.9 261.7-100 361.7-.3z"/>
+      </svg>
+    </button>
+    
+    
+    
+    </div>
+
+    <!-- Filtre par Type de Contrat -->
+    <div class="mb-6">
+      <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        Type de contrat
+      </h3>
+      <div class="space-y-2">
+        @for (type of getUniqueTypeContrats(); track type) {
+          <label class="flex items-center gap-2 cursor-pointer group">
+            <input 
+              type="checkbox"
+              [checked]="filters.typeContrat.includes(type)"
+              (change)="toggleFilter('typeContrat', type)"
+              class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            />
+            <span class="text-sm text-gray-700 group-hover:text-blue-600 transition-colors">
+              {{ type }}
+            </span>
+           
+          </label>
+        }
+      </div>
+    </div>
+
+    <!-- Filtre par Entreprise -->
+    <div class="mb-6">
+      <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+        Entreprise
+      </h3>
+      <div class="max-h-48 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
+        @for (entreprise of getUniqueEntreprises(); track entreprise) {
+          <label class="flex items-center gap-2 cursor-pointer group">
+            <input 
+              type="checkbox"
+              [checked]="filters.entreprise.includes(entreprise)"
+              (change)="toggleFilter('entreprise', entreprise)"
+              class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            />
+            <span class="text-sm text-gray-700 group-hover:text-blue-600 transition-colors truncate">
+              {{ entreprise }}
+            </span>
+           
+          </label>
+        }
+      </div>
+    </div>
+
+    <!-- Filtre par Localisation -->
+    <div class="mb-6">
+      <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        Localisation
+      </h3>
+      <div class="max-h-48 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
+        @for (localisation of getUniqueLocalisations(); track localisation) {
+          <label class="flex items-center gap-2 cursor-pointer group">
+            <input 
+              type="checkbox"
+              [checked]="filters.localisation.includes(localisation)"
+              (change)="toggleFilter('localisation', localisation)"
+              class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            />
+            <span class="text-sm text-gray-700 group-hover:text-blue-600 transition-colors truncate">
+              {{ localisation }}
+            </span>
+          
+          </label>
+        }
+      </div>
+    </div>
+
+    <!-- Filtre par Statut -->
+    <div class="mb-6">
+      <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Statut
+      </h3>
+      <div class="space-y-2">
+        @for (statut of getUniqueStatuts(); track statut) {
+          <label class="flex items-center gap-2 cursor-pointer group">
+            <input 
+              type="checkbox"
+              [checked]="filters.statut.includes(statut)"
+              (change)="toggleFilter('statut', statut)"
+              class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            />
+            <span class="text-sm text-gray-700 group-hover:text-blue-600 transition-colors">
+              {{ statut }}
+            </span>
+          
+          </label>
+        }
+      </div>
+    </div>
+
+    <!-- Résumé des filtres actifs -->
+    @if (hasActiveFilters()) {
+      <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
+        <p class="text-xs font-semibold text-blue-700 mb-2">Filtres actifs</p>
+        <div class="flex flex-wrap gap-2">
+          @for (filter of getActiveFiltersArray(); track filter) {
+            <span class="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">
+              {{ filter }}
+              <button 
+                (click)="removeActiveFilter(filter)"
+                class="hover:text-blue-900"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- Contenu principal (reste de votre code) -->
+<div class="md:ml-[280px] md:w-[calc(100%-280px)] pt-20 p-6 bg-gray-50 min-h-screen">
+  <!-- Barre de recherche améliorée -->
+  <div class="mb-8">
+    <div class="relative max-w-3xl mx-auto">
+      <input
+        #searchInput
+        type="text"
+        [value]="searchQuery"
+        (input)="searchQuery = searchInput.value; filterOffres()"
+        placeholder="Rechercher par titre, entreprise, compétences..."
+        class="w-full px-6 py-4 pr-12 border-2 border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-gray-700 placeholder-gray-400"
+      />
+      <button
+        type="button"
+        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-600 transition-colors duration-200"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- En-tête avec style moderne -->
+  <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+    <div class="flex justify-between items-center flex-wrap gap-4">
+      <div>
+        <h1 class="text-3xl font-bold text-blue-600 mb-1">Offres d'Emploi</h1>
+        <p class="text-gray-500 text-sm">Découvrez les meilleures opportunités au Maroc</p>
+      </div>
+      
+      <div class="flex items-center space-x-4 flex-wrap gap-2">
+        <!-- Résultats -->
+        <div class="bg-gray-50 px-4 py-2 rounded-lg">
+          <span class="text-sm text-gray-600">
+            {{ (currentPage - 1) * itemsPerPage + 1 }} - {{ Math.min(currentPage * itemsPerPage, filteredOffres.length) }} 
+            <span class="text-gray-400">sur</span> 
+            <span class="font-semibold text-blue-600">{{ filteredOffres.length }}</span>
+          </span>
+        </div>
+
+        <!-- Items par page -->
+        <div class="flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-lg">
+          <span class="text-xs text-gray-500 font-medium">Afficher:</span>
+          @for (size of [10, 25, 50]; track size) {
+            <button
+              [class.bg-blue-500]="itemsPerPage === size"
+              [class.text-white]="itemsPerPage === size"
+              [class.shadow-md]="itemsPerPage === size"
+              (click)="itemsPerPage = size"
+              class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 border border-gray-200"
+            >
+              {{ size }}
+            </button>
+          }
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-lg">
+          <span class="text-xs text-gray-500 font-medium">Page:</span>
+          <select
+            #pageSelect
+            [value]="currentPage"
+            (change)="setPage(pageSelect.value)"
+            class="px-3 py-1.5 text-sm border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-700 font-medium cursor-pointer"
+          >
+            @for (i of getPagesArray(); track i) {
+              <option [value]="i">{{ i }}</option>
+            }
+          </select>
+          <button
+            (click)="prevPage()"
+            [disabled]="currentPage <= 1"
+            class="px-3 py-1.5 text-sm font-semibold rounded-lg bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 border border-gray-200"
+          >
+            ‹
+          </button>
+          <button
+            (click)="nextPage()"
+            [disabled]="currentPage >= getTotalPages()"
+            class="px-3 py-1.5 text-sm font-semibold rounded-lg bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 border border-gray-200"
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Liste des offres avec design moderne -->
+  <div class="space-y-4">
+    @for (offre of paginatedOffres; track offre.id) {
+      <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100">
+        <div class="p-6">
+          <div class="flex items-start gap-5">
+            <!-- Logo de l'entreprise avec style -->
+            <div class="flex-shrink-0">
+              <div class="h-16 w-16 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center overflow-hidden shadow-sm">
+                <img
+                  [src]="'data:image/jpeg;base64,' + offre.recruteur.logoEntreprise"
+                  [alt]="offre.recruteur.nomEntreprise"
+                  class="h-full w-full object-contain p-2"
+                />
+              </div>
+            </div>
+
+            <!-- Contenu de l'offre -->
+            <div class="flex-grow">
+              <!-- Titre et entreprise -->
+              <div class="mb-3">
+                <h2 class="text-xl font-bold text-gray-800 mb-1 hover:text-blue-600 transition-colors cursor-pointer">
+                  {{ offre.titre }}
+                </h2>
+                <div class="flex items-center gap-2 text-sm text-gray-600">
+                  <span class="font-semibold text-blue-600">{{ offre.recruteur.nomEntreprise }}</span>
+                  <span class="text-gray-300">•</span>
+                  <span>{{ offre.recruteur.descriptionEntreprise }}</span>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="mb-4">
+                <p class="text-gray-600 text-sm leading-relaxed line-clamp-2">{{ offre.description }}</p>
+              </div>
+
+              <!-- Informations principales en badges -->
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="inline-flex items-center px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-xs font-semibold border border-blue-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  {{ offre.typeContrat }}
+                </span>
+                <span class="inline-flex items-center px-3 py-1.5 bg-gray-50 text-gray-700 rounded-lg text-xs font-semibold border border-gray-200">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  {{ offre.localisation }}
+                </span>
+                <span class="inline-flex items-center px-3 py-1.5 bg-green-50 text-green-700 rounded-lg text-xs font-semibold border border-green-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {{ offre.salaire }}
+                </span>
+                <span class="inline-flex items-center px-3 py-1.5 bg-gray-50 text-gray-600 rounded-lg text-xs font-medium border border-gray-200">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  {{ offre.datePublication }}
+                </span>
+              </div>
+
+              <!-- Compétences requises -->
+              <div class="mb-4">
+                <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 block">Compétences requises</span>
+                <div class="flex flex-wrap gap-2">
+                  @if (offre.competences && offre.competences.length > 0) {
+                    @for (comp of offre.competences; track comp.id) {
+                      <span class="inline-flex items-center px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium border border-blue-100">
+                        {{ comp.nom }}
+                        <span class="ml-1.5 px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded text-[10px] font-bold">{{ comp.niveau }}</span>
+                      </span>
+                    }
+                  } @else {
+                    <span class="text-gray-400 italic text-xs">Aucune compétence spécifiée</span>
+                  }
+                </div>
+              </div>
+
+              <!-- Informations de contact (repliables) -->
+              <details class="group mb-4">
+                <summary class="cursor-pointer text-xs font-semibold text-gray-500 uppercase tracking-wide hover:text-blue-600 transition-colors flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-open:rotate-90 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                  Informations de contact
+                </summary>
+                <div class="mt-3 pl-6 space-y-2 text-sm text-gray-600">
+                  @if (offre.recruteur.siteWeb) {
+                    <div class="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                      </svg>
+                      <a href="{{ offre.recruteur.siteWeb }}" target="_blank" class="text-blue-600 hover:underline">{{ offre.recruteur.siteWeb }}</a>
+                    </div>
+                  }
+                  @if (offre.recruteur.telephoneEntreprise) {
+                    <div class="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                      <span>{{ offre.recruteur.telephoneEntreprise }}</span>
+                    </div>
+                  }
+                </div>
+              </details>
+
+              <!-- Bouton Postuler -->
+              <div class="flex items-center gap-3">
+                <button
+                  (click)="postuler(offre.id)"
+                  class="inline-flex items-center gap-2 px-6 py-2.5 
+                         bg-blue-600 text-white text-sm font-semibold
+                         rounded-lg hover:bg-blue-700 active:bg-blue-800
+                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                         transition-all duration-200 shadow-sm hover:shadow-md"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Postuler maintenant
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- Modal de notification amélioré -->
+@if (showModal) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm p-4 animate-fadeIn">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform animate-slideUp">
+      <div class="text-center">
+        <!-- Icône succès -->
+        @if(modalType === 'success') {
+          <div class="mx-auto mb-6 h-20 w-20 rounded-full bg-green-100 flex items-center justify-center animate-scaleIn">
+            <svg class="h-12 w-12 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+        }
+        
+        <!-- Icône erreur -->
+        @if(modalType === 'error') {
+          <div class="mx-auto mb-6 h-20 w-20 rounded-full bg-red-100 flex items-center justify-center animate-scaleIn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+            </svg>
+          </div>
+        }
+        
+        <h3 class="text-2xl font-bold text-gray-800 mb-3">{{ modalTitle }}</h3>
+        <p class="text-gray-600 mb-8 leading-relaxed">{{ modalMessage }}</p>
+        
+        <button 
+          (click)="closeModal()" 
+          class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+}

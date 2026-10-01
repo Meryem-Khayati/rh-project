@@ -1,0 +1,353 @@
+
+/* Animation pour les cartes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.grid > div {
+  animation: fadeInUp 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.grid > div:nth-child(1) { animation-delay: 0.05s; }
+.grid > div:nth-child(2) { animation-delay: 0.1s; }
+.grid > div:nth-child(3) { animation-delay: 0.15s; }
+.grid > div:nth-child(4) { animation-delay: 0.2s; }
+.grid > div:nth-child(5) { animation-delay: 0.25s; }
+.grid > div:nth-child(6) { animation-delay: 0.3s; }
+.grid > div:nth-child(7) { animation-delay: 0.35s; }
+.grid > div:nth-child(8) { animation-delay: 0.4s; }
+.grid > div:nth-child(9) { animation-delay: 0.45s; }
+
+/* Stats cards hover effect */
+.grid.grid-cols-1.md\:grid-cols-4 > div {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.grid.grid-cols-1.md\:grid-cols-4 > div::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s;
+}
+
+.grid.grid-cols-1.md\:grid-cols-4 > div:hover::before {
+  left: 100%;
+}
+
+.grid.grid-cols-1.md\:grid-cols-4 > div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Candidature cards enhancement */
+.grid.gap-4 > div {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.grid.gap-4 > div::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.grid.gap-4 > div:hover::after {
+  opacity: 1;
+}
+
+.grid.gap-4 > div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+  border-color: #E5E7EB;
+}
+
+/* Button hover effects */
+button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Badges enhancement */
+span[class*="px-2.5"],
+span[class*="px-2"] {
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+span[class*="bg-green-"]:hover {
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+span[class*="bg-red-"]:hover {
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+span[class*="bg-yellow-"]:hover {
+  box-shadow: 0 2px 8px rgba(234, 179, 8, 0.3);
+}
+
+span[class*="bg-blue-"]:hover {
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+span[class*="bg-purple-"]:hover {
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+}
+
+/* Smooth scroll pour les modales */
+.max-h-\[90vh\] {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 130, 246, 0.4) transparent;
+}
+
+.max-h-\[90vh\]::-webkit-scrollbar {
+  width: 8px;
+}
+
+.max-h-\[90vh\]::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+
+.max-h-\[90vh\]::-webkit-scrollbar-thumb {
+  background-color: rgba(59, 130, 246, 0.4);
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.max-h-\[90vh\]::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(59, 130, 246, 0.6);
+}
+
+/* Animation fade in pour les modales */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.fixed.inset-0 {
+  animation: modalFadeIn 0.25s ease-out;
+  backdrop-filter: blur(2px);
+}
+
+.fixed.inset-0 > div {
+  animation: modalSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Entretiens cards in modal */
+.space-y-4 > div {
+  transition: all 0.3s ease;
+}
+
+.space-y-4 > div:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #D1D5DB;
+}
+
+/* Icon animations */
+svg {
+  transition: all 0.3s ease;
+}
+
+button:hover svg {
+  transform: scale(1.1);
+}
+
+/* Loading spinner enhancement */
+.animate-spin {
+  animation: spin 1s linear infinite;
+  filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3));
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Header button pulse on hover */
+.flex.items-center.justify-between button:hover {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Gradient backgrounds enhancement */
+.bg-gradient-to-r {
+  background-size: 200% 100%;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Card body sections spacing */
+.p-4.space-y-3 > div {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.p-4.space-y-3 > div:hover {
+  background-color: rgba(249, 250, 251, 0.5);
+}
+
+/* Info grid enhancement */
+.grid.grid-cols-2.gap-3 > div {
+  transition: all 0.2s ease;
+}
+
+.grid.grid-cols-2.gap-3 > div:hover {
+  transform: scale(1.02);
+}
+
+/* Competences tags */
+.flex.flex-wrap.gap-1 > span {
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.flex.flex-wrap.gap-1 > span:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+/* Empty state enhancement */
+.text-center.py-12 svg {
+  transition: all 0.3s ease;
+}
+
+.text-center.py-12:hover svg {
+  transform: scale(1.1) rotate(5deg);
+  opacity: 0.8;
+}
+
+/* Modal header sticky enhancement */
+.sticky.top-0 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+/* Error state enhancement */
+.border-red-200 {
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+/* Stats number counter effect */
+.text-2xl.font-bold {
+  font-variant-numeric: tabular-nums;
+  transition: all 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grid.gap-4 > div:hover {
+    transform: translateY(-2px);
+  }
+  
+  button::before {
+    display: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .fixed.inset-0 {
+    display: none !important;
+  }
+  
+  button {
+    display: none !important;
+  }
+}

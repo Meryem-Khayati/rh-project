@@ -1,0 +1,203 @@
+<div class="flex h-screen bg-gray-50">
+  <!-- Sidebar -->
+  <aside [class]="sidebarCollapsed ? 'w-20' : 'w-64'"
+    class="bg-white border-r border-gray-200 transition-all duration-300 flex flex-col">
+    <!-- Logo -->
+    <div class="h-16 flex items-center px-6 border-b border-gray-200">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-sm">
+          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <rect x="6" y="4" width="3" height="16" rx="1.5" />
+            <rect x="10.5" y="8" width="3" height="12" rx="1.5" />
+            <rect x="15" y="12" width="3" height="8" rx="1.5" />
+          </svg>
+        </div>
+        <span *ngIf="!sidebarCollapsed" class="text-xl font-bold text-gray-900">SmartHire</span>
+      </div>
+    </div>
+
+    <!-- Menu Items -->
+    <nav class="flex-1 px-3 py-4 overflow-y-auto">
+      <p *ngIf="!sidebarCollapsed" class="px-3 mb-2 text-xs font-semibold text-gray-400 uppercase">Menu Principal</p>
+
+      <div *ngFor="let item of menuItems" class="mb-1">
+        <!-- Menu Item Principal -->
+        <button (click)="item.submenu ? toggleSubmenu(item) : navigateTo(item)"
+          [class]="item.active ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'"
+          class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors relative group">
+
+          <!-- Dashboard Icon -->
+          <svg *ngIf="item.icon === 'grid'" class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+
+          <!-- Award Icon (NOUVEAU - à ajouter) -->
+          <svg *ngIf="item.icon === 'award'" class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+          </svg>
+
+          <!-- Candidats Icon -->
+          <svg *ngIf="item.icon === 'users'" class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+
+          <!-- Recruteurs Icon -->
+          <svg *ngIf="item.icon === 'briefcase'" class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+
+          <span *ngIf="!sidebarCollapsed" class="flex-1 text-left font-medium">{{ item.label }}</span>
+
+          <!-- Badge -->
+          <span *ngIf="item.badge && !sidebarCollapsed"
+            class="px-2 py-0.5 text-xs font-semibold text-white bg-orange-500 rounded-full">
+            {{ item.badge }}
+          </span>
+
+          <!-- Flèche pour sous-menu -->
+          <svg *ngIf="item.submenu && !sidebarCollapsed" [class.rotate-180]="item.expanded"
+            class="w-4 h-4 ml-auto transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <!-- Sous-menu -->
+        <div *ngIf="item.submenu && item.expanded && !sidebarCollapsed"
+          class="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-4">
+          <button *ngFor="let subItem of item.subItems" (click)="navigateTo(subItem)"
+            [class]="subItem.active ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'"
+            class="w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-sm">
+
+            <!-- Sub-item Icons -->
+            <svg *ngIf="subItem.icon === 'list'" class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+            </svg>
+
+            <span class="flex-1 text-left">{{ subItem.label }}</span>
+
+            <span *ngIf="subItem.badge" class="px-2 py-0.5 text-xs font-semibold text-white bg-orange-500 rounded-full">
+              {{ subItem.badge }}
+            </span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Toggle Button -->
+    <button (click)="toggleSidebar()"
+      class="mx-3 mb-4 py-2 px-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors flex items-center justify-center">
+      <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Navbar -->
+    <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6">
+      <div class="flex items-center flex-1 max-w-2xl">
+        <button (click)="toggleSidebar()" class="lg:hidden mr-4">
+          <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Dark Mode Toggle -->
+        <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+
+        <!-- Notifications -->
+        <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors relative">
+          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+          </svg>
+          <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+        </button>
+
+        <!-- User Menu -->
+        <div class="relative">
+          <button (click)="toggleUserMenu()"
+            class="flex items-center gap-3 hover:bg-gray-100 rounded-lg p-2 transition-colors">
+
+            <!-- Avatar dynamique avec initiales -->
+            <div *ngIf="!loading"
+              class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm">
+              {{ getInitials() }}
+            </div>
+
+            <!-- Loader pendant le chargement -->
+            <div *ngIf="loading" class="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>
+
+            <div class="hidden sm:block text-left">
+              <p class="text-sm font-semibold text-gray-900">
+                {{ loading ? 'Chargement...' : getFullName() }}
+              </p>
+              <p class="text-xs text-gray-500">
+                {{ loading ? '...' : userInfo?.username }}
+              </p>
+            </div>
+
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div *ngIf="userMenuOpen"
+            class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+
+            <!-- User Info Header -->
+            <div class="px-4 py-3 border-b border-gray-100">
+              <p class="text-sm font-semibold text-gray-900">
+                {{ getFullName() }}
+              </p>
+              <p class="text-xs text-gray-500 truncate">
+                {{ userInfo?.username }}
+              </p>
+              <span class="inline-block mt-1 px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-700 rounded">
+                {{ userInfo?.role }}
+              </span>
+            </div>
+
+
+            <hr class="my-1 border-gray-100">
+
+            <!-- Logout Button -->
+            <button (click)="logout()"
+              class="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-3 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              Déconnexion
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
+      <!-- Le contenu s'affichera via router-outlet -->
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
